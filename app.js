@@ -11,8 +11,16 @@ app.engine('mustache', mustacheExpress())
 app.set('views', './views')
 app.set('view engine', 'mustache')
 
+const todos = []
+const completed = []
+
 app.get('/', (request, response) => {
-  response.send('we are live!!!')
+  response.render('index', { todos: todos })
+})
+
+app.post('/', (request, response) => {
+  todos.push(request.body.todo)
+  response.redirect('/')
 })
 
 app.listen(3000, (response, request) => {
